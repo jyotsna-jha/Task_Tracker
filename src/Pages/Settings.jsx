@@ -50,7 +50,6 @@ const SettingsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4 sm:px-6 lg:px-8 xl:px-12">
       <div className="max-w-6xl mx-auto">
-        {/* Coming Soon Banner */}
         <div className="mb-8 sm:mb-12 text-center py-6 sm:py-8">
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3">
             <Zap className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#7148CC] animate-pulse" />
@@ -64,7 +63,6 @@ const SettingsPage = () => {
           </p>
         </div>
 
-        {/* Settings Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {settingsSections.map((section, index) => {
             const Icon = section.icon;
@@ -89,7 +87,7 @@ const SettingsPage = () => {
                       strokeWidth={2}
                     />
                   </div>
-                  <div className="flex-1 min-w-0"> {/* Added min-w-0 for text truncation */}
+                  <div className="flex-1 min-w-0"> 
                     <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 group-hover:text-[#7148CC] transition-colors duration-300 line-clamp-1">
                       {section.title}
                     </h3>
@@ -103,7 +101,6 @@ const SettingsPage = () => {
           })}
         </div>
 
-        {/* Footer Note */}
         <div className="mt-8 sm:mt-12 text-center">
           <div className="inline-block bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-md border border-gray-200 max-w-full mx-4">
             <p className="text-sm sm:text-base text-gray-700 font-medium">

@@ -8,7 +8,6 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showTaskPanel, setShowTaskPanel] = useState(false);
 
-  // Color scheme matching your design
   const colors = {
     done: '#10B981',
     progress: '#3B82F6',
@@ -18,7 +17,6 @@ const Calendar = () => {
     low: '#6B7280'
   };
 
-  // Get tasks for a specific date
   const getTasksForDate = (date) => {
     return tasks.filter(task => {
       if (!task.date) return false;
@@ -27,7 +25,6 @@ const Calendar = () => {
     });
   };
 
-  // Get month and year details
   const getMonthYear = (date) => {
     return {
       month: date.toLocaleString('default', { month: 'long' }),
@@ -35,33 +32,27 @@ const Calendar = () => {
     };
   };
 
-  // Navigate to previous month
   const prevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
 
-  // Navigate to next month
   const nextMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
-  // Get days in month
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
 
-  // Get first day of month
   const getFirstDayOfMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   };
 
-  // Generate calendar grid
   const generateCalendar = () => {
     const daysInMonth = getDaysInMonth(currentDate);
     const firstDay = getFirstDayOfMonth(currentDate);
     const calendar = [];
 
-    // Previous month days
     const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
     const prevMonthDays = getDaysInMonth(prevMonth);
     
@@ -74,7 +65,6 @@ const Calendar = () => {
       });
     }
 
-    // Current month days
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
       calendar.push({
@@ -84,7 +74,6 @@ const Calendar = () => {
       });
     }
 
-    // Next month days
     const totalCells = 42; // 6 weeks
     const nextMonthDays = totalCells - calendar.length;
     for (let i = 1; i <= nextMonthDays; i++) {
@@ -99,7 +88,6 @@ const Calendar = () => {
     return calendar;
   };
 
-  // Get priority color
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'High': return colors.high;
@@ -109,7 +97,6 @@ const Calendar = () => {
     }
   };
 
-  // Get status icon and color
   const getStatusInfo = (status) => {
     switch (status) {
       case 'Done':
@@ -146,7 +133,6 @@ const Calendar = () => {
   // Handle date click
   const handleDateClick = (date) => {
     setSelectedDate(date);
-    // On mobile, show task panel when date is clicked
     if (window.innerWidth < 1024) {
       setShowTaskPanel(true);
     }
@@ -159,14 +145,12 @@ const Calendar = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-6 pb-20">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 gap-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#2B069B] via-[#3A01BA] to-[#7148CC] bg-clip-text text-transparent">
               Calendar View
             </h1>
             
-            {/* Mobile Task Panel Toggle */}
             <button
               onClick={() => setShowTaskPanel(!showTaskPanel)}
               className="lg:hidden p-2 rounded-lg bg-white border border-gray-200 shadow-sm"
@@ -191,9 +175,7 @@ const Calendar = () => {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
-          {/* Calendar Section */}
           <div className={`xl:col-span-2 bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 ${showTaskPanel ? 'hidden lg:block' : 'block'}`}>
-            {/* Calendar Header */}
             <div className="flex items-center justify-between mb-4 sm:mb-6">
               <button
                 onClick={prevMonth}
@@ -214,7 +196,6 @@ const Calendar = () => {
               </button>
             </div>
 
-            {/* Week Days Header */}
             <div className="grid grid-cols-7 gap-1 mb-2 sm:mb-3">
               {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
                 <div key={day} className="text-center py-1 sm:py-2">
@@ -223,7 +204,6 @@ const Calendar = () => {
               ))}
             </div>
 
-            {/* Calendar Grid - Responsive */}
             <div className="grid grid-cols-7 gap-1">
               {calendar.map((day, index) => {
                 const isSelected = day.date.toDateString() === selectedDate.toDateString();
@@ -243,7 +223,6 @@ const Calendar = () => {
                       ${isToday && !isSelected ? 'border-blue-200 bg-blue-50' : ''}
                     `}
                   >
-                    {/* Date Number */}
                     <div className="flex justify-between items-start">
                       <span className={`
                         text-xs font-medium
@@ -254,7 +233,6 @@ const Calendar = () => {
                         {day.date.getDate()}
                       </span>
                       
-                      {/* Task Count Badge */}
                       {day.tasks.length > 0 && (
                         <span className={`
                           text-[8px] sm:text-[10px] px-1 rounded-full font-medium
@@ -268,7 +246,6 @@ const Calendar = () => {
                       )}
                     </div>
 
-                    {/* Task Indicators - Simplified for mobile */}
                     <div className="mt-1 space-y-0.5">
                       {day.tasks.slice(0, window.innerWidth < 640 ? 1 : 2).map((task, taskIndex) => (
                         <div
@@ -300,11 +277,9 @@ const Calendar = () => {
             </div>
           </div>
 
-          {/* Selected Date Tasks Section - Responsive */}
           <div className={`bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 ${
             showTaskPanel ? 'block' : 'hidden lg:block'
           }`}>
-            {/* Mobile Header with Close Button */}
             <div className="flex items-center justify-between mb-4 lg:mb-6">
               <div className="flex items-center gap-3">
                 <div className="bg-gradient-to-r from-[#7148CC] to-[#A213C5] rounded-lg sm:rounded-xl p-2 sm:p-3">
@@ -320,7 +295,6 @@ const Calendar = () => {
                 </div>
               </div>
               
-              {/* Mobile Close Button */}
               <button
                 onClick={() => setShowTaskPanel(false)}
                 className="lg:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
@@ -347,7 +321,6 @@ const Calendar = () => {
                       key={index}
                       className="group p-3 sm:p-4 rounded-lg sm:rounded-xl border border-gray-200 hover:border-[#7148CC] hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50 hover:from-purple-50 hover:to-white"
                     >
-                      {/* Task Header */}
                       <div className="flex items-start justify-between mb-2 sm:mb-3">
                         <h4 className="font-semibold text-gray-900 group-hover:text-[#7148CC] transition-colors duration-200 line-clamp-2 text-sm sm:text-base">
                           {task.title}
@@ -361,14 +334,12 @@ const Calendar = () => {
                         </div>
                       </div>
                       
-                      {/* Description */}
                       {task.description && (
                         <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors duration-200">
                           {task.description}
                         </p>
                       )}
                       
-                      {/* Task Meta */}
                       <div className="flex items-center justify-between">
                         <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusInfo.bgColor} ${statusInfo.textColor}`}>
                           {task.status}
@@ -384,7 +355,6 @@ const Calendar = () => {
                         </div>
                       </div>
 
-                      {/* Progress Bar */}
                       {task.progress !== undefined && task.status === 'In Progress' && (
                         <div className="mt-2 sm:mt-3">
                           <div className="flex justify-between text-xs text-gray-600 mb-1">
@@ -408,7 +378,6 @@ const Calendar = () => {
               </div>
             )}
 
-            {/* Quick Stats */}
             {selectedDateTasks.length > 0 && (
               <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200">
                 <div className="grid grid-cols-3 gap-2">
@@ -436,7 +405,6 @@ const Calendar = () => {
           </div>
         </div>
 
-        {/* Mobile Overlay */}
         {showTaskPanel && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"

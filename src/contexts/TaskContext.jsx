@@ -25,7 +25,7 @@ const initialState = {
   sortOrder: 'asc',
   activeFilter: 'All Tasks',
   searchQuery: '',
-  viewMode: 'table', // 'table' or 'grid'
+  viewMode: 'table', 
   dateFilter: 'all' // 'all', 'today', 'tomorrow', 'this-week', 'overdue'
 };
 

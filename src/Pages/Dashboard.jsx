@@ -8,7 +8,6 @@ import Analytics from './Analytics';
 import { TaskProvider, useTaskContext } from '../contexts/TaskContext';
 import { filterTasks, sortTasks } from '../utils/helpers';
 
-// Main Dashboard Component
 const DashboardContent = () => {
   const {
     tasks,
@@ -26,7 +25,6 @@ const DashboardContent = () => {
   const [editingTask, setEditingTask] = useState(null);
   const [activeTab, setActiveTab] = useState('tasks'); // 'tasks' or 'analytics'
 
-  // Filter and sort tasks (only for tasks tab)
   const filteredTasks = filterTasks(tasks, activeFilter, searchQuery, dateFilter);
   const sortedTasks = sortTasks(filteredTasks, sortBy, sortOrder);
 
@@ -53,7 +51,6 @@ const DashboardContent = () => {
     setEditingTask(null);
   };
 
-  // Calculate stats
   const stats = [
     { 
       title: 'Total Tasks', 

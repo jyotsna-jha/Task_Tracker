@@ -34,12 +34,10 @@ export const sortTasks = (tasks, sortBy, sortOrder) => {
 export const filterTasks = (tasks, filterStatus, searchQuery, dateFilter) => {
   let result = [...tasks];
 
-  // Filter by status
   if (filterStatus !== 'All Tasks') {
     result = result.filter(t => t.status === filterStatus);
   }
 
-  // Filter by search
   if (searchQuery) {
     const query = searchQuery.toLowerCase();
     result = result.filter(t => 
@@ -48,7 +46,6 @@ export const filterTasks = (tasks, filterStatus, searchQuery, dateFilter) => {
     );
   }
 
-  // Filter by date
   if (dateFilter && dateFilter !== 'all') {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -87,7 +84,6 @@ export const filterTasks = (tasks, filterStatus, searchQuery, dateFilter) => {
   return result;
 };
 
-// Helper function to get date filter display name
 export const getDateFilterDisplayName = (dateFilter) => {
   const filterNames = {
     'all': 'All Dates',

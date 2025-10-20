@@ -13,7 +13,7 @@ const useTasks = () => {
     setLoading(true);
     try {
       const data = await getTasks();
-      // Ensure all tasks have required fields with defaults
+     
       const tasksWithDefaults = data.map(task => ({
         priority: 'Medium',
         progress: 0,
