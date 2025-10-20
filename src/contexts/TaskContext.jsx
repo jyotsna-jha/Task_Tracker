@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import useTasks from '../hooks/useTasks';
+
 const TaskContext = createContext();
 
 const taskReducer = (state, action) => {
@@ -12,6 +13,8 @@ const taskReducer = (state, action) => {
       return { ...state, searchQuery: action.payload };
     case 'SET_VIEW_MODE':
       return { ...state, viewMode: action.payload };
+    case 'SET_DATE_FILTER':
+      return { ...state, dateFilter: action.payload };
     default:
       return state;
   }
@@ -22,7 +25,8 @@ const initialState = {
   sortOrder: 'asc',
   activeFilter: 'All Tasks',
   searchQuery: '',
-  viewMode: 'table' // 'table' or 'grid'
+  viewMode: 'table', // 'table' or 'grid'
+  dateFilter: 'all' // 'all', 'today', 'tomorrow', 'this-week', 'overdue'
 };
 
 export const TaskProvider = ({ children }) => {
@@ -45,6 +49,10 @@ export const TaskProvider = ({ children }) => {
     dispatch({ type: 'SET_VIEW_MODE', payload: mode });
   };
 
+  const setDateFilter = (dateFilter) => {
+    dispatch({ type: 'SET_DATE_FILTER', payload: dateFilter });
+  };
+
   return (
     <TaskContext.Provider value={{
       tasks,
@@ -56,7 +64,8 @@ export const TaskProvider = ({ children }) => {
       setSort,
       setFilter,
       setSearchQuery,
-      setViewMode
+      setViewMode,
+      setDateFilter
     }}>
       {children}
     </TaskContext.Provider>

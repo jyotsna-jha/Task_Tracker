@@ -2,8 +2,8 @@ import React from 'react';
 import { CheckCircle2, Clock, AlertCircle, Calendar, Edit2, Trash2 } from 'lucide-react';
 import { useTaskContext } from '../../contexts/TaskContext';
 
-const TaskGrid = ({ tasks, onEditTask }) => { // ✅ FIXED: Receive tasks as prop
-  const { deleteTask } = useTaskContext(); // ✅ Only get deleteTask from context
+const TaskGrid = ({ tasks, onEditTask }) => {
+  const { deleteTask } = useTaskContext();
 
   const statusConfig = {
     'Done': { 

@@ -31,10 +31,10 @@ export const sortTasks = (tasks, sortBy, sortOrder) => {
   return sorted;
 };
 
-export const filterTasks = (tasks, filterStatus, searchQuery) => {
+export const filterTasks = (tasks, filterStatus, searchQuery, dateFilter) => {
   let result = [...tasks];
 
-  // Filter by status - FIXED: Map "All Tasks" to no status filter
+  // Filter by status
   if (filterStatus !== 'All Tasks') {
     result = result.filter(t => t.status === filterStatus);
   }
@@ -48,5 +48,53 @@ export const filterTasks = (tasks, filterStatus, searchQuery) => {
     );
   }
 
+  // Filter by date
+  if (dateFilter && dateFilter !== 'all') {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(endOfWeek.getDate() + (7 - today.getDay()));
+
+    result = result.filter(task => {
+      if (!task.date) return false;
+      
+      const taskDate = new Date(task.date);
+      taskDate.setHours(0, 0, 0, 0);
+
+      switch (dateFilter) {
+        case 'today':
+          return taskDate.getTime() === today.getTime();
+        
+        case 'tomorrow':
+          return taskDate.getTime() === tomorrow.getTime();
+        
+        case 'this-week':
+          return taskDate >= today && taskDate <= endOfWeek;
+        
+        case 'overdue':
+          return taskDate < today && task.status !== 'Done';
+        
+        default:
+          return true;
+      }
+    });
+  }
+
   return result;
+};
+
+// Helper function to get date filter display name
+export const getDateFilterDisplayName = (dateFilter) => {
+  const filterNames = {
+    'all': 'All Dates',
+    'today': 'Today',
+    'tomorrow': 'Tomorrow',
+    'this-week': 'This Week',
+    'overdue': 'Overdue'
+  };
+  return filterNames[dateFilter] || 'All Dates';
 };

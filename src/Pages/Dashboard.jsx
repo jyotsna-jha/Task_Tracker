@@ -17,6 +17,7 @@ const DashboardContent = () => {
     updateTask,
     activeFilter,
     searchQuery,
+    dateFilter,
     sortBy,
     sortOrder,
   } = useTaskContext();
@@ -26,7 +27,7 @@ const DashboardContent = () => {
   const [activeTab, setActiveTab] = useState('tasks'); // 'tasks' or 'analytics'
 
   // Filter and sort tasks (only for tasks tab)
-  const filteredTasks = filterTasks(tasks, activeFilter, searchQuery);
+  const filteredTasks = filterTasks(tasks, activeFilter, searchQuery, dateFilter);
   const sortedTasks = sortTasks(filteredTasks, sortBy, sortOrder);
 
   const handleAddTask = () => {
@@ -98,9 +99,9 @@ const DashboardContent = () => {
           <>
             <StatsGrid stats={stats} />
 
-             <div className="mt-8 sm:mt-12 lg:mt-20">
+            <div className="mt-8 sm:mt-12 lg:mt-20">
               <SearchAndFilterBar onAddTask={handleAddTask} />
-            </div> 
+            </div>
 
             <div className='mb-8 sm:mb-12 lg:mb-20'>
               <TaskTable tasks={sortedTasks} onEditTask={handleEditTask} />

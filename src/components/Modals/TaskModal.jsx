@@ -197,7 +197,7 @@ const TaskModal = ({ isOpen, onClose, task, onSave }) => {
             </div>
           </div>
 
-          {/* Due Date Field */}
+          {/* Due Date Field - FIXED: Removed duplicate icon */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
               <Calendar className="w-4 h-4 text-[#7148CC]" />
@@ -209,10 +209,10 @@ const TaskModal = ({ isOpen, onClose, task, onSave }) => {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7148CC] focus:border-[#7148CC] transition-all duration-200 appearance-none text-sm custom-date"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7148CC] focus:border-[#7148CC] transition-all duration-200 appearance-none text-sm custom-date pl-3 pr-10"
                 style={{ accentColor: '#7148CC' }}
               />
-              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+              {/* Calendar icon removed from here since it's already in the label */}
             </div>
           </div>
 
