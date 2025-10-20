@@ -40,14 +40,7 @@ A beautiful, responsive task management application built with React.js that hel
 
 <div align="center">
 
-### Dashboard View
-![Dashboard](https://via.placeholder.com/400x250/ffffff/7148CC?text=Beautiful+Dashboard)
 
-### Task Management
-![Task Management](https://via.placeholder.com/400x250/ffffff/7148CC?text=Task+Management)
-
-### Mobile View
-![Mobile](https://via.placeholder.com/200x350/ffffff/7148CC?text=Mobile+Optimized)
 
 </div>
 
