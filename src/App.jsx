@@ -10,6 +10,8 @@ import Calendar from "./Pages/Calendar";
 import Analytics from "./Pages/Analytics";
 import Settings from "./Pages/Settings";
 
+// Create a wrapper that forces re-render
+const AnalyticsWrapper = () => <Analytics key={window.location.pathname} />;
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,10 @@ const router = createBrowserRouter([
       { index: true, element: <Dashboard /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "calendar", element: <Calendar /> },
-      { path: "analytics", element: <Analytics /> },
+      { 
+        path: "analytics", 
+        element: <AnalyticsWrapper /> // This forces re-render on navigation
+      },
       { path: "settings", element: <Settings /> },
     ],
   },

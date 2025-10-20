@@ -17,10 +17,40 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import { TrendingUp, Clock, CheckCircle2, AlertCircle, Target, Zap, BarChart3 } from 'lucide-react';
+import { TrendingUp, Clock, CheckCircle2, AlertCircle, Target, Zap, BarChart3, RefreshCw } from 'lucide-react';
 
 const Analytics = () => {
-  const { tasks } = useTaskContext();
+  const { tasks, loading } = useTaskContext();
+
+  // Debug logs to track state changes
+  React.useEffect(() => {
+    console.log('🔍 ANALYTICS - Tasks updated:', tasks.length);
+    console.log('🔍 ANALYTICS - Loading state:', loading);
+    console.log('🔍 ANALYTICS - All tasks:', tasks);
+    
+    // Log task distribution
+    const statusDistribution = {
+      'Done': tasks.filter(t => t.status === 'Done').length,
+      'In Progress': tasks.filter(t => t.status === 'In Progress').length,
+      'Pending': tasks.filter(t => t.status === 'Pending').length
+    };
+    console.log('🔍 ANALYTICS - Status distribution:', statusDistribution);
+  }, [tasks, loading]);
+
+  // Show loading state
+  if (loading) {
+    console.log('🔄 ANALYTICS - Showing loading state');
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <RefreshCw className="w-8 h-8 text-[#7148CC] animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading analytics data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  console.log('🎯 ANALYTICS - Rendering with tasks:', tasks.length);
 
   // Beautiful light color palette
   const colors = {
@@ -180,6 +210,17 @@ const Analytics = () => {
 
   const highPriorityTasks = tasks.filter(t => t.priority === 'High').length;
 
+  console.log('📊 ANALYTICS - Calculated metrics:', {
+    totalTasks,
+    completedTasks,
+    inProgressTasks,
+    pendingTasks,
+    completionRate,
+    avgProgress,
+    overdueTasks,
+    highPriorityTasks
+  });
+
   const metrics = [
     {
       title: 'Completion Rate',
@@ -278,6 +319,7 @@ const Analytics = () => {
   };
 
   if (tasks.length === 0) {
+    console.log('📭 ANALYTICS - No tasks available, showing empty state');
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-8">
         <div className="text-center">
@@ -291,15 +333,18 @@ const Analytics = () => {
     );
   }
 
+  console.log('🚀 ANALYTICS - Rendering full analytics dashboard');
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-4">
-      {/* Reduced margins by increasing max-width and adjusting padding */}
-    <div className="w-full px-0">
+      <div className="w-full px-0">
         {/* Enhanced Header */}
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-[#7148CC] to-[#A213C5] bg-clip-text text-transparent">
+                Analytics Dashboard
+              </h1>
             </div>
             <div className="flex flex-wrap gap-2">
               {statusData.map((status, index) => (

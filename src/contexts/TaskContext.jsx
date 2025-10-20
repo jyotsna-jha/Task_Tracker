@@ -26,12 +26,16 @@ const initialState = {
   activeFilter: 'All Tasks',
   searchQuery: '',
   viewMode: 'table', 
-  dateFilter: 'all' // 'all', 'today', 'tomorrow', 'this-week', 'overdue'
+  dateFilter: 'all'
 };
 
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
+  
+  // Use the hook directly - this is the key fix
   const { tasks, loading, addTask, updateTask, deleteTask } = useTasks();
+
+  console.log('🔄 TaskContext - Current tasks:', tasks.length, 'Loading:', loading);
 
   const setSort = (sortBy, sortOrder) => {
     dispatch({ type: 'SET_SORT', payload: { sortBy, sortOrder } });
@@ -55,8 +59,8 @@ export const TaskProvider = ({ children }) => {
 
   return (
     <TaskContext.Provider value={{
-      tasks,
-      loading,
+      tasks, // Pass tasks directly from the hook
+      loading, // Pass loading directly from the hook
       addTask,
       updateTask,
       deleteTask,
