@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![TaskFlow Banner](https://via.placeholder.com/800x200/7148CC/ffffff?text=TaskFlow+-+Modern+Task+Management)
 
 A beautiful, responsive task management application built with React.js that helps you organize your workflow and boost productivity.
 
